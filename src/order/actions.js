@@ -126,14 +126,22 @@ export function createAdult() {
   return (dispatch, getState) => {
     const { passengers } = getState()
     // 检查字段是否为空
-    for (let passenger of passengers) {
+    // for (let passenger of passengers) {
+    //   const keys = Object.keys(passenger)
+    //   for (let key of keys) {
+    //     if (!passenger[key]) {
+    //       return
+    //     }
+    //   }
+    // }
+    passengers.forEach(passenger => {
       const keys = Object.keys(passenger)
-      for (let key of keys) {
+      keys.forEach(key => {
         if (!passenger[key]) {
           return
         }
-      }
-    }
+      })
+    })
 
     dispatch(
       setPassengers([
@@ -156,18 +164,29 @@ export function createChild() {
 
     let adultFound = null
 
-    for (let passenger of passengers) {
+    // for (let passenger of passengers) {
+    //   const keys = Object.keys(passenger)
+    //   for (let key of keys) {
+    //     if (!passenger[key]) {
+    //       return
+    //     }
+    //   }
+
+    //   if (passenger.ticketType === 'adult') {
+    //     adultFound = passenger.id
+    //   }
+    // }
+    passengers.forEach(passenger => {
       const keys = Object.keys(passenger)
-      for (let key of keys) {
+      keys.forEach(key => {
         if (!passenger[key]) {
           return
         }
-      }
-
+      })
       if (passenger.ticketType === 'adult') {
         adultFound = passenger.id
       }
-    }
+    }) 
 
     if (!adultFound) {
       alert('请至少正确添加一个同行成人')
@@ -212,9 +231,12 @@ export function updatePassenger(id, data, keysToBeRemoved = []) {
         const newPassengers = [...passengers]
         newPassengers[i] = Object.assign({}, passengers[i], data)
 
-        for (let key of keysToBeRemoved) {
+        // for (let key of keysToBeRemoved) {
+        //   delete newPassengers[i][key]
+        // }
+        keysToBeRemoved.forEach(key => {
           delete newPassengers[i][key]
-        }
+        })
 
         dispatch(setPassengers(newPassengers))
 

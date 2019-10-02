@@ -126,9 +126,12 @@ function Passengers(props) {
 
   const nameMap = useMemo(() => {
     const ret = []
-    for (let passenger of passengers) {
+    passengers.forEach(passenger => {
       ret[passenger.id] = passenger.name
-    }
+    })
+    // for (let passenger of passengers) {
+    //   ret[passenger.id] = passenger.name
+    // }
     return ret
   }, [passengers])
 
